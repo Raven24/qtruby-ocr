@@ -316,7 +316,7 @@ class AppWindow < Qt::MainWindow
   def open_previous
     idx, list, dir = directory_list_pos
     p_idx = idx-1
-    if p_idx <= 0
+    if p_idx < 0
       Qt::MessageBox.warning(self, "EOL", "Beginning of the folder.\nThere are no more images...")
     else
       open_image(File.join(dir, list[p_idx]))
