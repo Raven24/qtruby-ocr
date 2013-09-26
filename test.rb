@@ -1,7 +1,6 @@
 
 require 'Qt'
 require 'tesseract'
-require 'tmpdir'
 
 class OutputDialog < Qt::Dialog
   def initialize
@@ -86,7 +85,7 @@ class SelectionOcrDialog < Qt::Dialog
   def paintEvent(evt)
     @view.fit_in_view(@item, Qt::KeepAspectRatio) unless @item.nil?
   end
-  
+
   def sizeHint
     Qt::Size.new(750, 400)
   end
@@ -296,19 +295,32 @@ class AppWindow < Qt::MainWindow
 
   def directory_list_pos
     dir = File.dirname(@image_filename)
-    list = Dir.glob(File.join(dir, '*')).map { |f| File.basename(f) }.sort_by { |f| f.downcase }
+    list = Dir.glob(File.join(dir, '*'))
+            .select { |f| !Dir.exists?(f) }
+            .map { |f| File.basename(f) }
+            .sort_by { |f| f.downcase }
     idx = list.index(File.basename(@image_filename))
     [idx, list, dir]
   end
 
   def open_next
     idx, list, dir = directory_list_pos
-    open_image(File.join(dir, list[idx+1]))
+    n_idx = idx+1
+    if n_idx >= list.length
+      Qt::MessageBox.warning(self, "EOL", "End of the folder.\nThere are no more images...")
+    else
+      open_image(File.join(dir, list[n_idx]))
+    end
   end
 
   def open_previous
     idx, list, dir = directory_list_pos
-    open_image(File.join(dir, list[idx-1]))
+    p_idx = idx-1
+    if p_idx <= 0
+      Qt::MessageBox.warning(self, "EOL", "Beginning of the folder.\nThere are no more images...")
+    else
+      open_image(File.join(dir, list[p_idx]))
+    end
   end
 
   def ocr_all
