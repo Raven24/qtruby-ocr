@@ -1,0 +1,23 @@
+GEM
+  remote: http://rubygems.org/
+  specs:
+    call-me (0.0.2.3)
+      refining
+    ffi (1.9.0)
+    ffi-extra (0.1.0)
+      ffi
+    ffi-inline (0.0.4.3)
+      ffi (>= 0.4.0)
+    iso-639 (0.1.0)
+    refining (0.0.5.5)
+    tesseract-ocr (0.1.5)
+      call-me
+      ffi-extra
+      ffi-inline
+      iso-639
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  tesseract-ocr
