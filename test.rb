@@ -199,6 +199,7 @@ class ImageWidget < Qt::Widget
 
   def set_image(filename)
     @rotate_spinbox.enabled = true
+    @rotate_spinbox.value = 0
     @next_button.enabled = true
     @previous_button.enabled = true
 
