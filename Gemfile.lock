@@ -9,6 +9,7 @@ GEM
     ffi-inline (0.0.4.3)
       ffi (>= 0.4.0)
     iso-639 (0.1.0)
+    qtbindings (4.8.3.0)
     refining (0.0.5.5)
     tesseract-ocr (0.1.5)
       call-me
@@ -20,4 +21,5 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  qtbindings
   tesseract-ocr
